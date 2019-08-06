@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'chart/line_chart.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,17 +11,23 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Flutter Hello',
       theme: new ThemeData(primaryColor: Colors.white),
-      home: new RandomWords(),
+      home: new ChartDemo(),
+      routes: <String, WidgetBuilder> {
+        '/line': (BuildContext context) => LineChart(),
+        '/bar': (BuildContext context) => LineChart(),
+        '/pie': (BuildContext context) => LineChart(),
+        '/scattor': (BuildContext context) => LineChart(),
+      },
     );
   }
 }
 
-class RandomWords extends StatefulWidget {
+class ChartDemo extends StatefulWidget {
   @override
-  createState() => new RandomWordsState();
+  createState() => new ChartDemoState();
 }
 
-class RandomWordsState extends State<RandomWords>{
+class ChartDemoState extends State<ChartDemo>{
   final _suggestions = <WordPair>[];
   final _saved = new Set<WordPair>();
   final TextStyle _biggerFont = const TextStyle(fontSize: 18.0);
@@ -60,41 +67,38 @@ class RandomWordsState extends State<RandomWords>{
       },
     );
   }
-  void _pushSaved() {
-    Navigator.of(context).push(
-      new MaterialPageRoute(
-        builder: (context) {
-          final tiles = _saved.map(
-            (pair) => new ListTile(
-              title: new Text(pair.asPascalCase, style: _biggerFont,),
-            )
-          );
-          final divided = ListTile
-            .divideTiles(
-              context: context,
-              tiles: tiles
-            )
-            .toList();
-          return new Scaffold(
-            appBar: new AppBar(
-              title: new Text('new scaffold'),
-            ),
-            body: new ListView(children: divided,),
-          );
-        }
-      )
+  Widget _buildDrawer() {
+    final _configTypes = ['line', 'bar', 'pie', 'scattor'];
+    return ListView(
+      padding: const EdgeInsets.all(16.0),
+      children: <Widget>[
+        DrawerHeader(
+          child: Text('Select type'),
+          decoration: BoxDecoration(
+            color: Colors.blue,
+          ),
+        ),
+        ..._configTypes.map(
+          (type) => ListTile(
+            title: Text(type),
+            onTap: () {
+              Navigator.pushNamed(context, '/' + type);
+            },
+          )
+        )
+      ],
     );
   }
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('list view'),
-        actions: <Widget>[
-          new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved,)
-        ],
+        title: new Text('list view'), 
       ),
-      body: _buildSuggestions(),
+      drawer: Drawer(
+        child: _buildDrawer()
+      ),
+      body: new Text('chart demo'),
     );
   }
 }
