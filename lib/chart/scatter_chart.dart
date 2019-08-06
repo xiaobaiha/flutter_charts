@@ -5,26 +5,18 @@ class ScatterChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = [
-      new DemoDataStructure(0, 5, 3.0),
-      new DemoDataStructure(1, 25, 5.0),
-      new DemoDataStructure(2, 100, 4.0),
-      new DemoDataStructure(3, 75, 6.5),
+      [0, 5, 3.0],
+      [1, 25, 5.0],
+      [2, 100, 4.0],
+      [3, 75, 8.5],
     ];
-    final List<charts.Series<DemoDataStructure, num>> seriesList = [new charts.Series<DemoDataStructure, int>(
+    final List<charts.Series<List, num>> seriesList = [new charts.Series<List, num>(
       id: 'Sales',
-      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-      domainFn: (DemoDataStructure sales, _) => sales.year,
-      measureFn: (DemoDataStructure sales, _) => sales.sales,
-      radiusPxFn: (DemoDataStructure sales, _) => sales.radius,
+      domainFn: (List sales, _) => sales[0],
+      measureFn: (List sales, _) => sales[1],
+      radiusPxFn: (List sales, _) => sales[2],
       data: data,
     )];
     return new charts.ScatterPlotChart(seriesList);
   }
-}
-
-class DemoDataStructure {
-  final int year;
-  final int sales;
-  final double radius;
-  DemoDataStructure(this.year, this.sales, this.radius);
 }
