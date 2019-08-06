@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'chart/line_chart.dart';
-import 'chart/bar_chart.dart';
-import 'chart/pie_chart.dart';
-import 'chart/scatter_chart.dart';
+// import 'chart/line_chart.dart';
+// import 'chart/bar_chart.dart';
+// import 'chart/pie_chart.dart';
+// import 'chart/scatter_chart.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 // import 'pages/line_chart_page.dart';
 
@@ -16,10 +16,10 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(primaryColor: Colors.white),
       home: new ChartDemo(),
       routes: <String, WidgetBuilder> {
-        '/line': (BuildContext context) => LineChart(),
-        '/bar': (BuildContext context) => BarChart(),
-        '/pie': (BuildContext context) => PieChart(),
-        '/scatter': (BuildContext context) => ScatterChart(),
+        // '/line': (BuildContext context) => LineChart(),
+        // '/bar': (BuildContext context) => BarChart(),
+        // '/pie': (BuildContext context) => PieChart(),
+        // '/scatter': (BuildContext context) => ScatterChart(),
       },
     );
   }
